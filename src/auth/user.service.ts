@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, Logger } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { User } from "./user.entity";
 import { AuthService } from "./auth.service";
@@ -7,6 +7,8 @@ import { CreateUserDto } from "./input/create.user.dto";
 
 @Injectable()
 export class UserService {
+private logger = new Logger(UserService.name);
+
   constructor(
     private readonly authService: AuthService,
     @InjectRepository(User)
@@ -15,6 +17,7 @@ export class UserService {
   }
 
   public async create(createUserDto: CreateUserDto): Promise<User> {
+    this.logger.log(`create user: ${createUserDto}`);
     return await this.userRepository.save(
       new User({
         ...createUserDto,

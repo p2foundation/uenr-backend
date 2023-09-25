@@ -31,4 +31,10 @@ export class CreateUserDto {
   @UserDoesNotExist()
   @Field()
   email: string;
+
+  @Length(8)
+  @Field()
+  phoneNumber: string;
+
+
 }

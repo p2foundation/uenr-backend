@@ -3,6 +3,7 @@ import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn
 import { Profile } from "./profile.entity";
 import { Field, Int, ObjectType } from "@nestjs/graphql";
 import { Customer } from "../customer/customer.entity";
+import { Account } from "../account/account.entity";
 
 @Entity()
 @ObjectType()
@@ -39,6 +40,12 @@ export class User {
   @Field()
   lastName: string;
 
+  @Column()
+  @Expose()
+  @Field()
+  phoneNumber: string;
+
+
   @OneToOne(() => Profile)
   @JoinColumn()
   @Expose()
@@ -48,4 +55,7 @@ export class User {
   // Relationships
   @OneToMany(() => Customer, customer => customer.user)
   customers: Customer[];
+
+  @OneToMany( ()=> Account, account => account.userId)
+  accounts: Account[]
 }

@@ -3,6 +3,7 @@ import { Customer } from "../customer/customer.entity";
 import { Transaction } from "../transaction/transaction.entity";
 import { Payment } from "../payment/payment.entity";
 import { Transfer } from "../transfer/transfer.entity";
+import { User } from "../auth/user.entity";
 
 @Entity()
 export class Account {
@@ -18,6 +19,9 @@ export class Account {
   // Relationships
   @ManyToOne(() => Customer, customer => customer.accounts)
   customer: Customer;
+
+  @ManyToOne(()=> User, user => user.id)
+  userId: User;
 
   @OneToMany(() => Transaction, transaction => transaction.account)
   transactions: Transaction[];
