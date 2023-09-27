@@ -2,6 +2,7 @@ import { Body, Controller, Get, Logger, Post } from "@nestjs/common";
 import { PaymentService } from "./payment.service";
 import { Payment } from "./payment.entity";
 import { Account } from "../account/account.entity";
+import { PaymentDto } from "./input/payment.dto";
 
 @Controller("payment")
 export class PaymentController {
@@ -18,8 +19,8 @@ export class PaymentController {
   }
 
   @Post("/makepayment")
-  async create(@Body() payment: Payment): Promise<Payment> {
-    const pays = await this.paymentService.create(payment);
+  async create(@Body() paymentDto: PaymentDto): Promise<Payment> {
+    const pays = await this.paymentService.create(paymentDto);
     this.logger.debug(`create payment ===> ${JSON.stringify(pays)}`)
     return pays;
   }

@@ -2,7 +2,7 @@ import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { Payment } from "./payment.entity";
-import { Account } from "../account/account.entity";
+import { PaymentDto } from "./input/payment.dto";
 
 @Injectable()
 export class PaymentService {
@@ -12,8 +12,17 @@ export class PaymentService {
   ) {
   }
 
-  async create(payment: Payment): Promise<Payment> {
-    return this.paymentRepository.save(payment);
+  async create(paymentDto: PaymentDto): Promise<Payment> {
+
+    const payment = new Payment();
+  
+    // Assuming PaymentDto has the same fields as Payment
+    Object.assign(payment, paymentDto);
+  
+    const payInputs = await this.paymentRepository.save(payment);
+  
+    return payInputs;
+    
   }
 
 

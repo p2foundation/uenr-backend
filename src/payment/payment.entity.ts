@@ -7,10 +7,19 @@ export class Payment {
   id: number;
 
   @Column()
+  userId: string;
+
+  @Column({ type: 'enum', enum: ['Bill Payment', 'Loan Payment', 'School Payment'] })
+  paymentType: string;
+
+  @Column()
+  description: string;
+
+  @Column()
   amount: number;
 
-  @Column({ type: 'enum', enum: ['Bill Payment', 'Loan Payment'] })
-  type: string;
+  @Column()
+  program: string;
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   createdAt: Date;
