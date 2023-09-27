@@ -11,7 +11,7 @@ export class DefaultGenerator {
   private day = '';
 
 
-  public accountNumber(): any {
+  public generateAccountNumber(): any {
     this.day = (this.date.getDate() < 10 ? '0' : '') + this.date.getDate();
     const month =
       (this.date.getMonth() + 1 < 10 ? '0' : '') + (this.date.getMonth() + 1);
