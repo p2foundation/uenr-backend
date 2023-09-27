@@ -12,6 +12,13 @@ export class Payment {
   @Column({ type: 'enum', enum: ['Bill Payment', 'Loan Payment'] })
   type: string;
 
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  createdAt: Date;
+
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  updatedAt: Date;
+
+
   // Relationships
   @ManyToOne(() => Account, account => account.payments)
   account: Account;

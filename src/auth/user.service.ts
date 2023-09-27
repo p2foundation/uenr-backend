@@ -17,7 +17,6 @@ private logger = new Logger(UserService.name);
   }
 
   public async create(createUserDto: CreateUserDto): Promise<User> {
-    this.logger.log(`create user: ${createUserDto}`);
     return await this.userRepository.save(
       new User({
         ...createUserDto,

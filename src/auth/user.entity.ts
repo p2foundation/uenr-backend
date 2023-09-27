@@ -51,11 +51,19 @@ export class User {
   @Expose()
   profile: Profile;
 
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  createdAt: Date;
+
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  updatedAt: Date;
+
 
   // Relationships
   @OneToMany(() => Customer, customer => customer.user)
   customers: Customer[];
 
-  @OneToMany( ()=> Account, account => account.userId)
-  accounts: Account[]
+
+  @OneToMany(() => Account, (account) => account.user)
+  accounts: Account[];
+
 }

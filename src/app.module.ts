@@ -28,7 +28,7 @@ import { GraphQLModule } from "@nestjs/graphql";
     }),
     AuthModule,
     TransactionModule,
-    AccountModule,
+    // AccountModule,
     TransferModule,
     PaymentModule,
     CustomerModule,

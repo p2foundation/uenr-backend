@@ -12,6 +12,12 @@ export class Transaction {
   @Column({ type: 'enum', enum: ['Deposit', 'Withdrawal', 'Transfer'] })
   type: string;
 
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  createdAt: Date;
+
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  updatedAt: Date;
+
   // Relationships
   @ManyToOne(() => Account, account => account.transactions)
   account: Account;

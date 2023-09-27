@@ -17,6 +17,12 @@ export class Customer{
   @Column()
   email: string;
 
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  createdAt: Date;
+
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  updatedAt: Date;
+
   // Relationships
   @ManyToOne(() => User, user => user.customers)
   user: User;

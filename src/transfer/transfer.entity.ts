@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Account } from "../account/account.entity";
 
 @Entity()
@@ -9,10 +9,23 @@ export class Transfer {
   @Column()
   amount: number;
 
-  // Relationships
-  @ManyToOne(() => Account, account => account.sourceAccount)
-  sourceAccount: Account;
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  createdAt: Date;
 
-  @ManyToOne(() => Account, account => account.destinationAccount)
-  destinationAccount: Account;
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  updatedAt: Date;
+
+
+  // Relationships
+  // @ManyToOne(() => Account, account => account.sourceAccount)
+  // sourceAccount: Account;
+  //
+  // @ManyToOne(() => Account, account => account.destinationAccount)
+  // destinationAccount: Account;
+
+  @OneToMany(() => Transfer, (transfer) => transfer.outgoingTransfers)
+  outgoingTransfers: Transfer[];
+
+  @OneToMany(() => Transfer, (transfer) => transfer.incomingTransfers)
+  incomingTransfers: Transfer[];
 }

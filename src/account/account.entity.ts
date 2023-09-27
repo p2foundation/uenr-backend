@@ -10,18 +10,31 @@ export class Account {
   @PrimaryGeneratedColumn()
   id: number;
 
+  @Column()
+  accountName: string;
+
   @Column({ type: "enum", enum: ["Current","Checking", "Savings"] })
-  type: string;
+  accountType: string;
 
   @Column()
-  balance: number;
+  accountNumber: string;
+
+  @Column()
+  accountBalance: number;
+
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  createdAt: Date;
+
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  updatedAt: Date;
+
 
   // Relationships
   @ManyToOne(() => Customer, customer => customer.accounts)
   customer: Customer;
 
-  @ManyToOne(()=> User, user => user.id)
-  userId: User;
+  @ManyToOne(() => User, (user) => user.accounts)
+  user: User;
 
   @OneToMany(() => Transaction, transaction => transaction.account)
   transactions: Transaction[];
@@ -29,8 +42,9 @@ export class Account {
   @OneToMany(() => Payment, payment => payment.account)
   payments: Payment
 
-  @OneToMany(() => Transfer, transfer => transfer.sourceAccount)
-  sourceAccount: Transfer
-  @OneToMany(()=> Transfer, (transfer)=>transfer.destinationAccount)
-  destinationAccount
+  @ManyToOne(() => Account, (account) => account.senderAccount)
+  senderAccount: Account;
+
+  @ManyToOne(() => Account, (account) => account.receiverAccount)
+  receiverAccount: Account;
 }
